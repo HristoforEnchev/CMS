@@ -20,7 +20,11 @@
                 
                 <?php
                 
-                $query = "SELECT * FROM posts";
+                if(isset($_GET['cat_id'])){
+                    $post_cat_id = $_GET['cat_id'];
+                }
+                
+                $query = "SELECT * FROM posts WHERE post_cat_id = {$post_cat_id}";
                 
                 $result = mysqli_query($connection, $query);
                 
@@ -31,7 +35,7 @@
                     $post_author = $row['post_author'];
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
-                    $post_content = substr($row['post_content'], 0, 50);
+                    $post_content = $row['post_content'];
                     
                 ?>
                 
