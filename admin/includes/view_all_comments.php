@@ -40,6 +40,7 @@
                 echo "<td>{$comment_status}</td>";
                 
                 
+                
                 $query_post_id = "SELECT * FROM posts WHERE post_id = {$comment_post_id}";
                 
                 $select_post_id = mysqli_query($connection, $query_post_id);
@@ -57,15 +58,10 @@
                 
                 
                 
-                
-                
-                
-                
-                
                 echo "<td>{$comment_date}</td>";
                 
-                echo "<td><a href='comments.php?source=edit_post&p_id={}'>Approve</a></td>";
-                echo "<td><a href='comments.php?del={}'>Unapprove</a></td>";
+                echo "<td><a href='comments.php?approve={$comment_id}'>Approve</a></td>";
+                echo "<td><a href='comments.php?unapprove={$comment_id}'>Unapprove</a></td>";
                
                 echo "<td><a href='comments.php?del={$comment_id}'>Delete</a></td></tr>";
             }
@@ -78,6 +74,45 @@
     
     <?php
     
+//Unapprove button 
+    
+        if(isset($_GET['unapprove'])){
+            
+            $unapprove_id = $_GET['unapprove'];
+            
+            $unapprove_query = "UPDATE comments SET comment_status = 'unapproved' ";
+            $unapprove_query .= "WHERE comment_id = {$unapprove_id}";
+            
+            $res_unapprove_query = mysqli_query($connection, $unapprove_query);
+            
+            confirm($res_unapprove_query);
+            
+            header("Location: comments.php");
+            
+        }
+    
+    
+//Approve button 
+    
+         if(isset($_GET['approve'])){
+            
+            $approve_id = $_GET['approve'];
+            
+            $approve_query = "UPDATE comments SET comment_status = 'approved' ";
+            $approve_query .= "WHERE comment_id = {$approve_id}";
+            
+            $res_approve_query = mysqli_query($connection, $approve_query);
+            
+            confirm($res_approve_query);
+            
+            header("Location: comments.php");
+            
+        }
+    
+    
+    
+//Delete button 
+    
         if(isset($_GET['del'])){
             
             $delete_id = $_GET['del'];
@@ -88,15 +123,7 @@
             
             header("Location: comments.php");  //reload   refresh
             
-            
-            
-            
         }
-    
-    
-    
-    
-    
     
     ?>
     

@@ -15,7 +15,7 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Welcome to Admin area
-                            <small>Comments</small>
+                            <small>Users</small>
                         </h1>
                         <?php 
                             if(isset($_GET['source'])){
@@ -25,16 +25,16 @@
                             }
         
                             switch($source){
-                                case 'add_post':
-                                include "includes/add_post.php";
+                                case 'add_user':
+                                include "includes/add_user.php";
                                 break;
                                     
-                                case 'edit_post':
-                                include "includes/edit_post.php";
+                                case 'edit_user':
+                                include "includes/edit_user.php";
                                 break;
                                     
                                 default:
-                                include "includes/view_all_comments.php"; 
+                                include "includes/view_all_users.php"; 
                             }
                             
                         ?>

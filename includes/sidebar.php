@@ -32,6 +32,23 @@
         </form><!--seaech form-->
         <!-- /.input-group -->
     </div>
+    
+    <!-- Login Form -->
+    <div class="well">
+        <h4>Login</h4>
+        <form action="includes/login.php" method="post">
+            <div class="form-group">
+                <input name="username" type="text" class="form-control" placeholder="username">
+            </div>
+            <div class="input-group">
+                <input name="password" type="password" class="form-control" placeholder="password">
+                <span class="input-group-btn">
+                    <button name="submit" class="btn btn-default" type="submit">Submit</button>
+                </span>
+            </div>
+        </form><!--seaech form-->
+        <!-- /.input-group -->
+    </div>
 
 
 

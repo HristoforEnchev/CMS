@@ -20,11 +20,18 @@
                 
                 <?php
                 
-                $query = "SELECT * FROM posts";
+                $query = "SELECT * FROM posts WHERE post_status = 'published'";
                 
                 $result = mysqli_query($connection, $query);
                 
+                $rows = mysqli_num_rows($result);      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                if($rows < 1){
+                    echo "<h1>There is no published Posts!</h1>";
+                }
+                
                 while($row = mysqli_fetch_assoc($result)){
+                    
                     
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
@@ -32,6 +39,7 @@
                     $post_date = $row['post_date'];
                     $post_image = $row['post_image'];
                     $post_content = substr($row['post_content'], 0, 50);
+                    
                     
                 ?>
                 
@@ -50,7 +58,7 @@
                 </a>
                 <hr>
                 <p><?php echo $post_content; ?></p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <a class="btn btn-primary" href="post.php?id=<?php echo $post_id ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                 <hr>
                 
                 <?php
