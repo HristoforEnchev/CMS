@@ -23,7 +23,7 @@
                 
                 if(isset($_POST['submit'])){
                  
-                    $search = $_POST['search'];
+                    $search = escape($_POST['search']);
                     
                     $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%'";
 

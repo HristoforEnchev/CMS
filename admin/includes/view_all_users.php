@@ -57,7 +57,7 @@
     
         if(isset($_GET['to_admin'])){
             
-            $to_admin_id = $_GET['to_admin'];
+            $to_admin_id = escape($_GET['to_admin']);
             
             $to_admin_query = "UPDATE users SET user_role = 'admin' ";
             $to_admin_query .= "WHERE user_id = {$to_admin_id}";
@@ -75,7 +75,7 @@
     
         if(isset($_GET['to_subscriber'])){
             
-            $to_subscriber_id = $_GET['to_subscriber'];
+            $to_subscriber_id = escape($_GET['to_subscriber']);
             
             $to_subscriber_query = "UPDATE users SET user_role = 'subscriber' ";
             $to_subscriber_query .= "WHERE user_id = {$to_subscriber_id}";
@@ -92,17 +92,30 @@
     
 //Delete button 
     
-        if(isset($_GET['del'])){
+        if(isset($_SESSION['user_role'])){
+            if($_SESSION['user_role'] !== 'admin'){
+                header("Location: ../index.php");
+            } else {
+
+
+                if(isset($_GET['del'])){
             
-            $delete_id = $_GET['del'];
-            
-            $delete_query = "DELETE FROM users WHERE user_id = {$delete_id}";
-            
-            $delete_result = mysqli_query($connection, $delete_query);
-            
-            header("Location: users.php");  //reload   refresh
-            
+                    $delete_id = mysqli_real_escape_string($connection, $_GET['del']);
+                    
+                    $delete_query = "DELETE FROM users WHERE user_id = {$delete_id}";
+                    
+                    $delete_result = mysqli_query($connection, $delete_query);
+                    
+                    header("Location: users.php");  //reload   refresh
+                    
+                }
+
+            }
         }
+
+
+
+        
     
     ?>
     

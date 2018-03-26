@@ -60,7 +60,7 @@
        
        <?php
         
-        $query = "SELECT * FROM categories LIMIT 6";
+        $query = "SELECT * FROM categories";
         
         $res = mysqli_query($connection, $query);
 

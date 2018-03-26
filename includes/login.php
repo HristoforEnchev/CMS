@@ -1,3 +1,4 @@
+<?php ob_start(); ?>
 <?php include "db.php"; ?>
 <?php session_start(); ?>
 
@@ -31,7 +32,12 @@ if(isset($_POST['submit'])){
     
     
     
-    if ($username === $user_username && $user_password === $password){
+    //$password = crypt($password, $user_password);
+    //$password === $user_password
+    // $username === $user_username
+
+
+    if ($username === $user_username && password_verify($password, $user_password)){
         
         $_SESSION['username'] = $user_username;
         $_SESSION['firstname'] = $user_firstname;
@@ -44,24 +50,6 @@ if(isset($_POST['submit'])){
     } else {
         header("Location: ../index.php");
     }
-    
-    
-    
-//    if($username !== $user_username || $user_password !== $password){
-//        header("Location: ../index.php");
-//    } else if ($username == $user_username && $user_password == $password){
-//        
-//        $_SESSION['username'] = $user_username;
-//        $_SESSION['firstname'] = $user_firstname;
-//        $_SESSION['lastname'] = $user_lastname;
-//        $_SESSION['user_role'] = $user_role;
-//        
-//        
-//        
-//        header("Location: ../admin");
-//    }
-    
-    
     
 }
 

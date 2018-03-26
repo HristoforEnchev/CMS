@@ -5,7 +5,7 @@
 <?php
 
 if( isset($_GET['edit_id'])){
-    $edit_id = $_GET['edit_id'];
+    $edit_id = escape($_GET['edit_id']);
 
     $query = "SELECT * FROM categories WHERE cat_id = {$edit_id}";
 
@@ -38,9 +38,9 @@ if( isset($_GET['edit_id'])){
                                     
                                     if(isset($_POST['update_cat'])){
                                         
-                                        $upd_title = $_POST['cat_edit_title'];
+                                        $upd_title = escape($_POST['cat_edit_title']);
                                         
-                                        $upd_id = $_POST['cat_upd_id'];
+                                        $upd_id = escape($_POST['cat_upd_id']);
                                         
                                         $query_upd = "UPDATE categories SET cat_title = '{$upd_title}' ";
                                         $query_upd .= "WHERE cat_id = $upd_id";

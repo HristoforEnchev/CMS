@@ -2,13 +2,11 @@
 
     <div id="wrapper">
 
+
+
         <!-- Navigation -->
         
-        <?php include "includes/admin_navigation.php" ?>       
-        
-        
-        
-        
+        <?php include "includes/admin_navigation.php" ?>    
         
         
 
@@ -22,9 +20,11 @@
                         
                            
                         <h1 class="page-header">
-                            Welcome to Admin area
-                            <small><?php echo $_SESSION['username']; ?></small>
+                            Welcomeeeeee to Admin area
+                            <small><?php echo $_SESSION['username'] . " " . session_id(); ?></small>
                         </h1>
+
+
                         
                         
                         
@@ -204,7 +204,7 @@
                 
                 
                 
-                
+                <!-- blue chart -->
       
                 <div class="row">
                     <script type="text/javascript">

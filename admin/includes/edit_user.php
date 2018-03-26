@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_GET['u_id'])){
-        $edit_user_id = $_GET['u_id'];
+        $edit_user_id = escape($_GET['u_id']);
 
         echo $edit_user_id; 
         
@@ -16,7 +16,7 @@
             $lastname = $row['lastname'];
             $username = $row['username'];
             $email = $row['user_email'];
-            $password = $row['password'];
+            $password = "";
             $user_role = $row['user_role'];
         }
         
@@ -25,16 +25,18 @@
 
     if(isset($_POST['submit'])){
     
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $username = $_POST['username'];
-    $user_email = $_POST['user_email'];
-    $user_role = $_POST['user_role'];
-    $password = $_POST['password'];
-        
+    $firstname = escape($_POST['firstname']);
+    $lastname = escape($_POST['lastname']);
+    $username = escape($_POST['username']);
+    $user_email = escape($_POST['user_email']);
+    $user_role = escape($_POST['user_role']);
+    $password = escape($_POST['password']);
+
+    //$password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+                
     $query_edit = "UPDATE users SET ";
     $query_edit .= "username = '{$username}', "; 
-    $query_edit .= "password = '{$password}', ";
+    //$query_edit .= "password = '{$password}', ";
     $query_edit .= "firstname = '{$firstname}', ";
     $query_edit .= "lastname = '{$lastname}', ";
     $query_edit .= "user_email = '{$user_email}', ";

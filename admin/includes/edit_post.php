@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_GET['p_id'])){
-        $edit_post_id = $_GET['p_id'];
+        $edit_post_id = escape($_GET['p_id']);
 
         echo $edit_post_id;  
     }
@@ -31,14 +31,14 @@
 
     if(isset($_POST['edit'])){
         
-        $edit_title = $_POST['title'];
-        $edit_author = $_POST['author'];
-        $edit_status = $_POST['post_status'];
-        $edit_tags = $_POST['post_tags'];
-        $edit_content = $_POST['post_content'];
+        $edit_title = escape($_POST['title']);
+        $edit_author = escape($_POST['author']);
+        $edit_status = escape($_POST['post_status']);
+        $edit_tags = escape($_POST['post_tags']);
+        $edit_content = escape($_POST['post_content']);
         
         
-        $edit_category_id = $_POST['post_category_id'];
+        $edit_category_id = escape($_POST['post_category_id']);
         if($edit_category_id == 0){
             $query_cat_id = "SELECT * FROM posts WHERE post_id = {$edit_post_id}";
             
@@ -85,6 +85,8 @@
         $update_post = mysqli_query($connection, $query_up);
         
         confirm($update_post);
+        
+        $_SESSION['confirm'] = "Post Updated";
         
         header("Location: posts.php");
     }
@@ -180,7 +182,7 @@
     </div>
      <div class="form-group">
         <label for="">Post Content</label>
-        <textarea name="post_content" id="" cols="30" rows="5" class="form-control"><?php echo $post_content; ?></textarea>
+        <textarea name="post_content" id="body" cols="30" rows="5" class="form-control"><?php echo $post_content; ?></textarea>
     </div>
     <div class="form-group">
         <input type="submit" name="edit" class="btn btn-primary" value="Edit Post">

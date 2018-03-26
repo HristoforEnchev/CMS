@@ -44,12 +44,12 @@
                             <?php
                         
                             if(isset($_POST['update'])){
-                                $firstname = $_POST['firstname'];
-                                $lastname = $_POST['lastname'];
-                                $username = $_POST['username'];
-                                $user_email = $_POST['user_email'];
-                                $user_role = $_POST['user_role'];
-                                $password = $_POST['password'];
+                                $firstname = escape($_POST['firstname']);
+                                $lastname = escape($_POST['lastname']);
+                                $username = escape($_POST['username']);
+                                $user_email = escape($_POST['user_email']);
+                                $user_role = escape($_POST['user_role']);
+                                $password = escape($_POST['password']);
 
                                 $query_edit = "UPDATE users SET ";
                                 $query_edit .= "username = '{$username}', "; 

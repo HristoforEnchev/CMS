@@ -22,7 +22,13 @@
                 
                 if(isset($_GET['id'])){
                 
-                $post_id = $_GET['id'];
+                $post_id = escape($_GET['id']);
+                    
+                $query_update_post_count = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = {$post_id}";
+                    
+                $res_update_count = mysqli_query($connection, $query_update_post_count);
+                    
+                    
                     
                 $query = "SELECT * FROM posts WHERE post_id = {$post_id}";
                 
@@ -44,7 +50,7 @@
                     <a href="#"><?php echo $post_title; ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author; ?></a>
+                    by <a href="author_posts.php?author=<?php echo $post_author; ?>"><?php echo $post_author; ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> <?php echo $post_date; ?> Posted on August 28, 2013 at 10:00 PM</p>
                 <hr>
@@ -57,6 +63,8 @@
                 <?php
                 
                 }
+                } else {
+                    header("Location: index.php");
                 }
                 ?>
                 
@@ -76,32 +84,36 @@
 
                 if(isset($_POST['add_comment'])){
                     
-                $post_id = $_GET['id'];
+                $post_id = escape($_GET['id']);
 
-                $comment_author = $_POST['comment_author'];
-                $comment_email = $_POST['comment_email'];
-                $comment_content = $_POST['comment_content'];
+                $comment_author = escape($_POST['comment_author']);
+                $comment_email = escape($_POST['comment_email']);
+                $comment_content = escape($_POST['comment_content']);
+                    
+                if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
 
-                $query_add_comment = "INSERT INTO comments VALUES ";
-                $query_add_comment .= "( NULL, {$post_id}, '{$comment_author}', '{$comment_email}', ";
-                $query_add_comment .= "'{$comment_content}', 'unapproved', now())";  
+                    $query_add_comment = "INSERT INTO comments VALUES ";
+                    $query_add_comment .= "( NULL, {$post_id}, '{$comment_author}', '{$comment_email}', ";
+                    $query_add_comment .= "'{$comment_content}', 'unapproved', now())";  
+                        
+                    $insert_post = mysqli_query($connection, $query_add_comment);
+                        
+                    if(!$query_add_comment){
+                        die("Query Failed " . mysqli_error($connection));
+                    }
                     
-                $insert_post = mysqli_query($connection, $query_add_comment);
+                        
+                    // $query_add_com_count = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
+                    // $query_add_com_count .= "WHERE post_id = {$post_id}";
+                        
+                    // $upd_add_com_count = mysqli_query($connection, $query_add_com_count);
                     
-                if(!$query_add_comment){
-                    die("Query Failed " . mysqli_error($connection));
-                }
                     
-                    
-                $query_add_com_count = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
-                $query_add_com_count .= "WHERE post_id = {$post_id}";
-                    
-                $upd_add_com_count = mysqli_query($connection, $query_add_com_count);
-                    
-                if(!$upd_add_com_count){
-                    die("QUERY FAILED " . mysqli_error($connection));
-                }
                    
+                } else {
+                    echo "<script>alert('Fields can not be empty!');</script>";
+                }
+                    
                 }
                 
                 ?>
@@ -139,7 +151,7 @@
                 
 <?php
 
-$post_id = $_GET['id'];
+$post_id = escape($_GET['id']);
 
 $query_com_by_postId_app = "SELECT * FROM comments WHERE comment_post_id = {$post_id} AND ";
 $query_com_by_postId_app .= "comment_status = 'approved' ";

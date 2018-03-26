@@ -19,7 +19,7 @@
                         </h1>
                         <?php 
                             if(isset($_GET['source'])){
-                                $source = $_GET['source'];
+                                $source = escape($_GET['source']);
                             } else {
                                 $source = '';
                             }
@@ -31,6 +31,10 @@
                                     
                                 case 'edit_post':
                                 include "includes/edit_post.php";
+                                break;
+
+                                case 'comments':
+                                include "includes/post_comments.php";
                                 break;
                                     
                                 default:

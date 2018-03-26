@@ -2,12 +2,12 @@
 
 if(isset($_POST['submit'])){
     
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $username = $_POST['username'];
-    $user_email = $_POST['user_email'];
-    $user_role = $_POST['user_role'];
-    $password = $_POST['password'];
+    $firstname = escape($_POST['firstname']);
+    $lastname = escape($_POST['lastname']);
+    $username = escape($_POST['username']);
+    $user_email = escape($_POST['user_email']);
+    $user_role = escape($_POST['user_role']);
+    $password = escape($_POST['password']);
     
     
     
@@ -18,11 +18,11 @@ if(isset($_POST['submit'])){
 //    move_uploaded_file($image_tmp_name, "../images/{$image_name}");
     
     
+    $password = password_hash($password, PASSWORD_DEFAULT, array('cost' => 12));
     
+    $query_insert = "INSERT INTO users (username, password, firstname, lastname, user_email, user_image, user_role)";
     
-    $query_insert = "INSERT INTO users VALUES ";
-    
-    $query_insert .= "(NULL, '{$username}', '{$password}', '{$firstname}', '{$lastname}', '{$user_email}', '', '{$user_role}', '')";
+    $query_insert .= "VALUES ('{$username}', '{$password}', '{$firstname}', '{$lastname}', '{$user_email}', '', '{$user_role}')";
     
     $insert_user = mysqli_query($connection, $query_insert);
     

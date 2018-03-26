@@ -28,27 +28,24 @@
                     
                     while($row = mysqli_fetch_assoc($result)){
                         $cat_title = $row['cat_title'];
-                        echo "<li><a href='#'>$cat_title</a></li>";
+                        $cat_id = $row['cat_id'];
+                        echo "<li><a href='category.php?cat_id={$cat_id}'>$cat_title</a></li>";
                     }
                     
-                    ?>       
-                          
-                             
-                                
-              
-                   
-<!--
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
--->
+                    ?> 
+                    
                     <li><a href='admin'>Admin</a></li>
+                    
+                    <?php
+                    
+                    if(isset($_SESSION['username'])){
+                        
+                        if(isset($_GET['id'])){
+                             echo "<li><a href='admin/posts.php?source=edit_post&p_id={$_GET['id']}'>Edit Post</a></li>";
+                        }
+                        
+                    }
+                    ?>
                     
                 </ul>
             </div>
